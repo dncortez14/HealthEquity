@@ -10,6 +10,7 @@
 <div>
     <h4>Car</h4>
     <hr />
+    @Html.HiddenFor(model => model.Car.CarId)
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Car.Make)
@@ -41,15 +42,47 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Car.Color)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Car.Price)
-        </dt>
-        <dd class="col-sm-10">
-            $ @Html.DisplayFor(model => model.Car.Price)
-        </dd>
     </dl>
 </div>
+
+<div class="modal fade" id="guessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Guess the Price</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="txtPrice" class="form-label">Enter a value</label>
+                    <input type="number" class="form-control" id="txtPrice" maxlength="10">
+                </div>
+
+                <div class="alert alert-success visually-hidden" role="alert" id="successMsg">
+                    <h4 class="alert-heading">Great Job!</h4>
+                    <label>
+                        The real price is $
+                        @Html.DisplayFor(model => model.Car.Price)
+                    </label>
+                </div>
+
+                <div class="alert alert-danger visually-hidden" role="alert" id="errorMsg">
+                    <h4 class="alert-heading">Better luck next time!</h4>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" id="btnGuess">Guess</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Car?.CarId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#guessModal">
+        Guess The Price
+    </button>
+    <a class="btn btn-outline-secondary" asp-page="./Edit" asp-route-id="@Model.Car?.CarId">Edit</a>
+    <a class="btn btn-outline-warning" asp-page="./Index">Back to List</a>
 </div>

@@ -8,7 +8,6 @@ builder.Services.AddDbContext<CarsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLInstance"));
 });
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -28,6 +27,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
+
 
 app.Run();
